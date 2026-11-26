@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Why I build React Native apps with TypeScript | Nishanth Kumar</title>
+<meta name="description" content="How TypeScript makes a cross-platform codebase safer, when React Native is the right choice, and when I reach for Swift instead.">
+<link rel="canonical" href="https://nishanth.dev/blog/react-native-typescript.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Nishanth Kumar">
+<meta name="theme-color" content="#F5F5F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nishanth Kumar">
+<meta property="og:url" content="https://nishanth.dev/blog/react-native-typescript.html">
+<meta property="og:title" content="Why I build React Native apps with TypeScript | Nishanth Kumar">
+<meta property="og:description" content="How TypeScript makes a cross-platform codebase safer, when React Native is the right choice, and when I reach for Swift instead.">
+<meta property="og:image" content="https://nishanth.dev/blog/og-react-native-typescript.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Why I build React Native apps with TypeScript">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why I build React Native apps with TypeScript | Nishanth Kumar">
+<meta name="twitter:description" content="How TypeScript makes a cross-platform codebase safer, when React Native is the right choice, and when I reach for Swift instead.">
+<meta name="twitter:image" content="https://nishanth.dev/blog/og-react-native-typescript.png">
+<link rel="preload" href="../archivo-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="blog.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://nishanth.dev/blog/react-native-typescript.html#post",
+      "headline": "Why I build React Native apps with TypeScript",
+      "description": "How TypeScript makes a cross-platform codebase safer, when React Native is the right choice, and when I reach for Swift instead.",
+      "image": "https://nishanth.dev/blog/og-react-native-typescript.png",
+      "datePublished": "2026-11-26",
+      "dateModified": "2026-11-26",
+      "inLanguage": "en",
+      "wordCount": 529,
+      "author": {
+        "@type": "Person",
+        "@id": "https://nishanth.dev/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.dev/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://nishanth.dev/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.dev/"
+      },
+      "mainEntityOfPage": "https://nishanth.dev/blog/react-native-typescript.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://nishanth.dev/blog/#blog"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nishanth.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://nishanth.dev/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Why I build React Native apps with TypeScript",
+          "item": "https://nishanth.dev/blog/react-native-typescript.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner" aria-label="Main">
+    <a class="nav__brand" href="../index.html"><img src="../nishanth.jpg" alt="" width="300" height="300"><span class="nav__brand-text">Nishanth Kumar</span></a>
+    <div class="nav__links">
+      <a href="../work/index.html">My work</a>
+      <a class="nav__hide" href="../services/index.html">Services</a>
+      <a href="../blog/index.html" aria-current="page">Blog</a>
+      <a href="../about/index.html">About</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a class="btn btn--primary nav__cta" href="../contact/index.html">Hire me</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap" id="main">
+  <article>
+    <header class="post__hero post__hero--indigo">
+      <p class="post__crumbs"><a href="index.html">Blog</a><span aria-hidden="true">/</span>React Native</p>
+      <h1>Why I build React Native apps with TypeScript</h1>
+      <p class="post__dek">How TypeScript makes a cross-platform codebase safer, when React Native is the right choice, and when I reach for Swift instead.</p>
+      <p class="post__meta">
+        <span class="by"><img src="../nishanth.jpg" alt="" width="300" height="300">Nishanth Kumar</span>
+        <time datetime="2026-11-26">26 November 2026</time>
+        <span>4 min read</span>
+      </p>
+    </header>
+
+    <div class="prose">
+<p>I’ve worked in React Native for over three years alongside native iOS, shipping apps like BLOK Pass and Live Building Systems to both the App Store and Google Play, and training client teams along the way. These days I start every React Native project in TypeScript. Here’s why, and how I set it up.</p>
+
+<h2>Types catch bugs before your users do</h2>
+<p>A React Native codebase passes a lot of data around: API responses, component props, navigation parameters, app state. In plain JavaScript, a typo or a missing field shows up as a crash on someone’s phone. With TypeScript, the editor flags it while you type.</p>
+<pre><code>type Ride = {
+  id: string;
+  driver: string;
+  seats: number;
+};
+
+type RideRowProps = {
+  ride: Ride;
+  onRequest: (id: Ride["id"]) =&gt; void;
+};
+
+export function RideRow({ ride, onRequest }: RideRowProps) {
+  return (
+    &lt;Pressable onPress={() =&gt; onRequest(ride.id)}&gt;
+      &lt;Text&gt;{ride.driver}&lt;/Text&gt;
+      &lt;Text&gt;{ride.seats} seats&lt;/Text&gt;
+    &lt;/Pressable&gt;
+  );
+}</code></pre>
+<p>New React Native projects use TypeScript by default, so there’s little reason to start without it. I also turn on <code>"strict": true</code> in <code>tsconfig.json</code> from day one. It’s far easier than tightening types later.</p>
+
+<h2>Type the API at the boundary</h2>
+<p>Backends don’t always name things the way your app wants. I describe the API response as its own type and convert it once, where it enters the app. The rest of the code only ever sees clean, app-shaped types.</p>
+<pre><code>type ApiRide = { id: string; driver_name: string; seats_left: number };
+
+function toRide(r: ApiRide): Ride {
+  return { id: r.id, driver: r.driver_name, seats: r.seats_left };
+}</code></pre>
+<p>If the backend changes a field, there’s exactly one place to fix.</p>
+
+<h2>Type your navigation</h2>
+<p>Navigation is a common source of bugs: a screen expects a <code>rideId</code> and gets nothing. With React Navigation, a parameter list makes every route and its parameters checked:</p>
+<pre><code>import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  Rides: undefined;
+  RideDetail: { rideId: string };
+};
+
+type Props = NativeStackScreenProps&lt;RootStackParamList, "RideDetail"&gt;;
+
+function RideDetail({ route }: Props) {
+  const { rideId } = route.params; // typed as string
+  // ...
+}</code></pre>
+
+<h2>Share types with the web</h2>
+<p>If you also have a React and TypeScript web app, the same types and business logic can live in a shared package. Your app, your web dashboard and your admin panel then agree on what a ride, an order or a user is.</p>
+
+<h2>When React Native is the right choice</h2>
+<ul>
+<li>You need iOS and Android at launch, with one team.</li>
+<li>Your team already knows React and TypeScript.</li>
+<li>Most of the app is screens, lists, forms and API calls.</li>
+</ul>
+
+<h2>When I reach for Swift instead</h2>
+<ul>
+<li>The app relies on heavy graphics, AR or advanced camera work.</li>
+<li>It depends on the newest Apple-only features.</li>
+<li>Smooth, platform-perfect animation is the product itself.</li>
+</ul>
+<p>It doesn’t have to be all or nothing. Because iOS is my core, when a React Native app needs something the framework doesn’t cover, I write that part as a native module in Swift and keep the rest cross-platform.</p>
+
+<h2>Shipping to both stores</h2>
+<p>A cross-platform app still ships twice. I set up builds, signing and releases for both the App Store and Google Play early, ideally automated, so releasing is routine rather than a weekend project.</p>
+    </div>
+
+    <aside class="post__cta" aria-label="Work with me">
+      <img src="../nishanth.jpg" alt="" width="300" height="300">
+      <div><strong>Want help with this on your app?</strong><span>I build, review and speed up iOS apps, plus the web and backend around them.</span></div>
+      <a class="btn" href="../contact/index.html#book">Book a call</a>
+    </aside>
+  </article>
+
+  <section class="post__more" aria-labelledby="more-title">
+    <h2 id="more-title">More articles</h2>
+    <div class="post-grid">
+      <article class="post-card post-card--graphite">
+        <p class="post-card__kicker">Article, iOS</p>
+        <h3 class="post-card__title"><a href="xcode-cloud-ci-cd.html">Setting up CI/CD for iOS with Xcode Cloud</a></h3>
+        <p class="post-card__text">Three workflows, custom scripts, and when to pick another tool.</p>
+        <span class="btn btn--light post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><path d="M78 92a26 26 0 0 1 4-51.7A34 34 0 0 1 146 38a28 28 0 0 1 16 53.9Z" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/><path d="M40 130h160" stroke="rgba(255,255,255,.4)" stroke-width="2"/><g fill="#fff"><circle cx="60" cy="130" r="11"/><circle cx="120" cy="130" r="11"/><circle cx="180" cy="130" r="11"/></g><g fill="none" stroke="#34C759" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m55 130 3.5 3.5 6.5-7"/><path d="m115 130 3.5 3.5 6.5-7"/><path d="m175 130 3.5 3.5 6.5-7"/></g><path d="M120 104V70m-9 9 9-9 9 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </article>
+      <article class="post-card post-card--amber">
+        <p class="post-card__kicker">Article, Web</p>
+        <h3 class="post-card__title"><a href="website-development.html">How I build websites that are fast and easy to find</a></h3>
+        <p class="post-card__text">Speed, search, accessibility, and working with your app.</p>
+        <span class="btn btn--primary post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(30 30)"><rect width="180" height="130" rx="14" fill="#fff"/><rect width="180" height="24" rx="14" fill="#F4F4F6"/><rect y="12" width="180" height="12" fill="#F4F4F6"/><circle cx="16" cy="12" r="4" fill="#FF5F57"/><circle cx="29" cy="12" r="4" fill="#FEBC2E"/><circle cx="42" cy="12" r="4" fill="#28C840"/><rect x="16" y="40" width="96" height="12" rx="6" fill="#1D1D1F"/><rect x="16" y="60" width="140" height="7" rx="3.5" fill="#D9D9DE"/><rect x="16" y="73" width="118" height="7" rx="3.5" fill="#D9D9DE"/><rect x="16" y="92" width="48" height="18" rx="9" fill="#1D1D1F"/></g></svg></div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <div>
+        <p class="site-footer__big">Full-stack developer with iOS at the core.</p>
+        <div class="site-footer__actions">
+          <a class="btn btn--primary" href="../contact/index.html#book">Book a call</a>
+          <a class="btn btn--ghost" href="../contact/index.html#message">Send a message</a>
+        </div>
+      </div>
+      <nav aria-labelledby="f-pages">
+        <h2 id="f-pages">Pages</h2>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../work/index.html">My work</a></li>
+          <li><a href="../services/index.html">Services</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../faq/index.html">FAQ</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 id="f-connect">Connect</h2>
+        <ul aria-labelledby="f-connect">
+          <li><a href="https://www.linkedin.com/in/nishanthkumar9493" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="../contact/index.html#book">Book a call</a></li>
+          <li><a href="../nishanth-kumar-ios-resume.pdf" download>Résumé (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2026 Nishanth Kumar</p>
+      <p>Almere, Netherlands. Working remotely worldwide.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Setting up CI/CD for iOS with Xcode Cloud | Nishanth Kumar</title>
+<meta name="description" content="The three workflows I set up for most iOS apps, plus custom scripts, secrets, and when another CI tool is the better choice.">
+<link rel="canonical" href="https://nishanth.dev/blog/xcode-cloud-ci-cd.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Nishanth Kumar">
+<meta name="theme-color" content="#F5F5F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nishanth Kumar">
+<meta property="og:url" content="https://nishanth.dev/blog/xcode-cloud-ci-cd.html">
+<meta property="og:title" content="Setting up CI/CD for iOS with Xcode Cloud | Nishanth Kumar">
+<meta property="og:description" content="The three workflows I set up for most iOS apps, plus custom scripts, secrets, and when another CI tool is the better choice.">
+<meta property="og:image" content="https://nishanth.dev/blog/og-xcode-cloud-ci-cd.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Setting up CI/CD for iOS with Xcode Cloud">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Setting up CI/CD for iOS with Xcode Cloud | Nishanth Kumar">
+<meta name="twitter:description" content="The three workflows I set up for most iOS apps, plus custom scripts, secrets, and when another CI tool is the better choice.">
+<meta name="twitter:image" content="https://nishanth.dev/blog/og-xcode-cloud-ci-cd.png">
+<link rel="preload" href="../archivo-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="blog.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://nishanth.dev/blog/xcode-cloud-ci-cd.html#post",
+      "headline": "Setting up CI/CD for iOS with Xcode Cloud",
+      "description": "The three workflows I set up for most iOS apps, plus custom scripts, secrets, and when another CI tool is the better choice.",
+      "image": "https://nishanth.dev/blog/og-xcode-cloud-ci-cd.png",
+      "datePublished": "2026-11-26",
+      "dateModified": "2026-11-26",
+      "inLanguage": "en",
+      "wordCount": 523,
+      "author": {
+        "@type": "Person",
+        "@id": "https://nishanth.dev/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.dev/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://nishanth.dev/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.dev/"
+      },
+      "mainEntityOfPage": "https://nishanth.dev/blog/xcode-cloud-ci-cd.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://nishanth.dev/blog/#blog"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nishanth.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://nishanth.dev/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Setting up CI/CD for iOS with Xcode Cloud",
+          "item": "https://nishanth.dev/blog/xcode-cloud-ci-cd.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner" aria-label="Main">
+    <a class="nav__brand" href="../index.html"><img src="../nishanth.jpg" alt="" width="300" height="300"><span class="nav__brand-text">Nishanth Kumar</span></a>
+    <div class="nav__links">
+      <a href="../work/index.html">My work</a>
+      <a class="nav__hide" href="../services/index.html">Services</a>
+      <a href="../blog/index.html" aria-current="page">Blog</a>
+      <a href="../about/index.html">About</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a class="btn btn--primary nav__cta" href="../contact/index.html">Hire me</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap" id="main">
+  <article>
+    <header class="post__hero post__hero--graphite">
+      <p class="post__crumbs"><a href="index.html">Blog</a><span aria-hidden="true">/</span>iOS</p>
+      <h1>Setting up CI/CD for iOS with Xcode Cloud</h1>
+      <p class="post__dek">The three workflows I set up for most iOS apps, plus custom scripts, secrets, and when another CI tool is the better choice.</p>
+      <p class="post__meta">
+        <span class="by"><img src="../nishanth.jpg" alt="" width="300" height="300">Nishanth Kumar</span>
+        <time datetime="2026-11-26">26 November 2026</time>
+        <span>4 min read</span>
+      </p>
+    </header>
+
+    <div class="prose">
+<p>Continuous integration is one of those things every iOS team agrees with and few set up properly. Xcode Cloud, Apple’s CI/CD service built into Xcode and App Store Connect, removes most of the excuses. It builds your app in the cloud, runs your tests, signs the build and can send it straight to TestFlight, with no build machines to maintain. This is how I usually set it up.</p>
+
+<h2>Start with three workflows</h2>
+<p>Each Xcode Cloud workflow has start conditions (what triggers it), actions (build, test, analyse or archive) and post-actions (like TestFlight distribution or notifications). Three workflows cover most apps:</p>
+<ul>
+<li><strong>Pull requests.</strong> Starts on pull request changes. Builds the app and runs the test suite, so every pull request is green before anyone reviews it.</li>
+<li><strong>Main branch.</strong> Starts on changes to <code>main</code>. Tests, archives and sends the build to internal TestFlight testers, so the team always has the latest version on their phones.</li>
+<li><strong>Release.</strong> Starts on a tag like <code>v2.4.0</code>. Archives the release and sends it to external TestFlight testers, ready for App Store review.</li>
+</ul>
+<p>Releasing then becomes a decision, not a process: tag the commit, and the build is on its way.</p>
+
+<h2>Custom scripts</h2>
+<p>Xcode Cloud looks for a <code>ci_scripts</code> folder next to your project and runs scripts with specific names at set points: <code>ci_post_clone.sh</code> after the repository is cloned, <code>ci_pre_xcodebuild.sh</code> before the build, and <code>ci_post_xcodebuild.sh</code> after it. I use the first for tools and checks:</p>
+<pre><code>#!/bin/sh
+# ci_scripts/ci_post_clone.sh
+set -e
+
+brew install swiftlint
+cd "$CI_PRIMARY_REPOSITORY_PATH"
+swiftlint --strict</code></pre>
+<p>Xcode Cloud also sets environment variables you can branch on. For example, doing something only when a workflow archives:</p>
+<pre><code>#!/bin/sh
+# ci_scripts/ci_post_xcodebuild.sh
+if [ "$CI_XCODEBUILD_ACTION" = "archive" ]; then
+  echo "Archived build $CI_BUILD_NUMBER"
+fi</code></pre>
+<p>Remember to make the scripts executable with <code>chmod +x</code>, or they won’t run.</p>
+
+<h2>Keep secrets out of the repository</h2>
+<p>API keys and tokens belong in the workflow’s environment variables, marked as secret, not in the code. Scripts read them like any other variable, and they never show up in logs or in Git history.</p>
+
+<h2>Make tests fast</h2>
+<p>A slow pipeline gets ignored. I put unit and UI tests in a test plan and run it on several simulators in parallel, for example a small and a large iPhone, and an iPad if the app supports it. Results go to Slack or email, so a failing build gets noticed while the change is still fresh.</p>
+
+<h2>Xcode Cloud or another tool?</h2>
+<p>I’ve also worked with Bitrise, CircleCI and Fastlane, and each has its place. Xcode Cloud is a great fit when your app ships only on Apple platforms, you want the least setup, and you want builds to land in TestFlight with no extra steps. Something like Bitrise or CircleCI with Fastlane often fits better when:</p>
+<ul>
+<li>You also ship Android, for example with React Native.</li>
+<li>You need custom build machines or unusual tools.</li>
+<li>Your pipeline is shared with web and backend projects.</li>
+</ul>
+
+<h2>The payoff</h2>
+<p>Once it’s running, nobody archives by hand, every pull request is tested before review, and testers always have the latest build. It takes an afternoon to set up and pays for itself the first week.</p>
+    </div>
+
+    <aside class="post__cta" aria-label="Work with me">
+      <img src="../nishanth.jpg" alt="" width="300" height="300">
+      <div><strong>Want help with this on your app?</strong><span>I build, review and speed up iOS apps, plus the web and backend around them.</span></div>
+      <a class="btn" href="../contact/index.html#book">Book a call</a>
+    </aside>
+  </article>
+
+  <section class="post__more" aria-labelledby="more-title">
+    <h2 id="more-title">More articles</h2>
+    <div class="post-grid">
+      <article class="post-card post-card--amber">
+        <p class="post-card__kicker">Article, Web</p>
+        <h3 class="post-card__title"><a href="website-development.html">How I build websites that are fast and easy to find</a></h3>
+        <p class="post-card__text">Speed, search, accessibility, and working with your app.</p>
+        <span class="btn btn--primary post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(30 30)"><rect width="180" height="130" rx="14" fill="#fff"/><rect width="180" height="24" rx="14" fill="#F4F4F6"/><rect y="12" width="180" height="12" fill="#F4F4F6"/><circle cx="16" cy="12" r="4" fill="#FF5F57"/><circle cx="29" cy="12" r="4" fill="#FEBC2E"/><circle cx="42" cy="12" r="4" fill="#28C840"/><rect x="16" y="40" width="96" height="12" rx="6" fill="#1D1D1F"/><rect x="16" y="60" width="140" height="7" rx="3.5" fill="#D9D9DE"/><rect x="16" y="73" width="118" height="7" rx="3.5" fill="#D9D9DE"/><rect x="16" y="92" width="48" height="18" rx="9" fill="#1D1D1F"/></g></svg></div>
+      </article>
+      <article class="post-card post-card--red">
+        <p class="post-card__kicker">Article, iOS</p>
+        <h3 class="post-card__title"><a href="swiftui-in-a-uikit-app.html">Adding SwiftUI to a UIKit app without a rewrite</a></h3>
+        <p class="post-card__text">Bring SwiftUI into a large UIKit codebase one screen at a time.</p>
+        <span class="btn btn--light post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(36 34) rotate(-7)"><rect width="112" height="140" rx="16" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/><text x="16" y="30" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#fff">UIKit</text><rect x="16" y="44" width="64" height="7" rx="3.5" fill="rgba(255,255,255,.45)"/><rect x="16" y="58" width="44" height="7" rx="3.5" fill="rgba(255,255,255,.45)"/></g><g transform="translate(98 44) rotate(5)"><rect width="112" height="140" rx="16" fill="#fff"/><text x="16" y="30" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#D63B25">SwiftUI</text><rect x="16" y="44" width="70" height="7" rx="3.5" fill="#F6C9C1"/><rect x="16" y="58" width="48" height="7" rx="3.5" fill="#F6C9C1"/><rect x="16" y="78" width="80" height="34" rx="9" fill="#FCE7E3"/></g></svg></div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <div>
+        <p class="site-footer__big">Full-stack developer with iOS at the core.</p>
+        <div class="site-footer__actions">
+          <a class="btn btn--primary" href="../contact/index.html#book">Book a call</a>
+          <a class="btn btn--ghost" href="../contact/index.html#message">Send a message</a>
+        </div>
+      </div>
+      <nav aria-labelledby="f-pages">
+        <h2 id="f-pages">Pages</h2>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../work/index.html">My work</a></li>
+          <li><a href="../services/index.html">Services</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../faq/index.html">FAQ</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 id="f-connect">Connect</h2>
+        <ul aria-labelledby="f-connect">
+          <li><a href="https://www.linkedin.com/in/nishanthkumar9493" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="../contact/index.html#book">Book a call</a></li>
+          <li><a href="../nishanth-kumar-ios-resume.pdf" download>Résumé (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2026 Nishanth Kumar</p>
+      <p>Almere, Netherlands. Working remotely worldwide.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

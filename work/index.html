@@ -234,8 +234,8 @@
   <nav class="nav__inner" aria-label="Main">
     <a class="nav__brand" href="../index.html"><img src="../nishanth.jpg" alt="" width="300" height="300"><span class="nav__brand-text">Nishanth Kumar</span></a>
     <div class="nav__links">
-      <a href="../work/index.html" aria-current="page">Work</a>
-      <a class="nav__hide" href="../index.html#services">Services</a>
+      <a href="../work/index.html" aria-current="page">My work</a>
+      <a class="nav__hide" href="../services/index.html">Services</a>
       <a href="../blog/index.html">Blog</a>
       <a href="../about/index.html">About</a>
       <a href="../faq/index.html">FAQ</a>
@@ -353,7 +353,15 @@
           <h3 class="work-card__title" id="next-title">Something new is in the works</h3>
           <p class="work-card__text">A second product is in development. Details coming soon.</p>
           <a class="btn btn--ghost" href="../contact/index.html?topic=products#message"><svg aria-hidden="true"><use href="#i-chat"/></svg>Ask me about it</a>
-          <div class="work-card__art" aria-hidden="true"><span class="dev dev--ipad"><i></i></span><span class="dev dev--phone"><i></i></span></div>
+          <div class="work-card__art work-card__art--soon" aria-hidden="true"><svg viewBox="0 0 360 220">
+            <defs><linearGradient id="soon-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7C5CFF"/><stop offset=".55" stop-color="#C45CE0"/><stop offset="1" stop-color="#FF8A5B"/></linearGradient></defs>
+            <circle cx="180" cy="110" r="96" fill="none" style="stroke:var(--line)" stroke-width="2" stroke-dasharray="4 9" stroke-linecap="round"/>
+            <circle cx="180" cy="110" r="66" fill="none" style="stroke:var(--line)" stroke-width="2"/>
+            <rect x="136" y="66" width="88" height="88" rx="22" fill="url(#soon-g)"/>
+            <path d="M180 84c2.6 15.4 8.6 21.4 24 24-15.4 2.6-21.4 8.6-24 24-2.6-15.4-8.6-21.4-24-24 15.4-2.6 21.4-8.6 24-24Z" fill="#fff"/>
+            <g style="fill:var(--ink-2)"><path d="M76 52c1 6 3.4 8.4 9.4 9.4-6 1-8.4 3.4-9.4 9.4-1-6-3.4-8.4-9.4-9.4 6-1 8.4-3.4 9.4-9.4Z"/><path d="M290 150c.8 4.6 2.6 6.4 7.2 7.2-4.6.8-6.4 2.6-7.2 7.2-.8-4.6-2.6-6.4-7.2-7.2 4.6-.8 6.4-2.6 7.2-7.2Z"/></g>
+            <circle cx="276" cy="58" r="5" fill="#FFB21E"/><circle cx="92" cy="168" r="4" fill="#34C759"/><circle cx="262" cy="196" r="3" style="fill:var(--ink-2)"/>
+          </svg></div>
         </article>
       </div>
     </div>
@@ -652,21 +660,12 @@
         <h2 id="f-pages">Pages</h2>
         <ul>
           <li><a href="../index.html">Home</a></li>
-          <li><a href="../work/index.html">Work</a></li>
-          <li><a href="../index.html#services">Services</a></li>
+          <li><a href="../work/index.html">My work</a></li>
+          <li><a href="../services/index.html">Services</a></li>
           <li><a href="../blog/index.html">Blog</a></li>
           <li><a href="../about/index.html">About</a></li>
           <li><a href="../faq/index.html">FAQ</a></li>
           <li><a href="../contact/index.html">Contact</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="f-services">
-        <h2 id="f-services">Services</h2>
-        <ul>
-          <li><a href="../services/app-development-process/index.html">App development steps</a></li>
-          <li><a href="../services/react-native-typescript/index.html">React Native with TypeScript</a></li>
-          <li><a href="../services/xcode-cloud/index.html">CI/CD with Xcode Cloud</a></li>
-          <li><a href="../services/website-development/index.html">Website development</a></li>
         </ul>
       </nav>
       <div>
