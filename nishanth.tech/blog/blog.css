@@ -1,0 +1,50 @@
+/* Blog-only styles. Loaded after ../site.css, which holds the shared tokens, nav, cards and footer. */
+:root { --code-bg: #14161B; --code-ink: #E6EDF3; }
+@media (prefers-color-scheme: dark) { :root { --code-bg: #141416; } }
+
+.blog-head { padding: clamp(48px, 8vw, 104px) 0 clamp(32px, 4vw, 48px); text-align: center; }
+.blog-head h1 { font-family: var(--font-display); font-stretch: 115%; font-weight: 800; font-size: clamp(2.6rem, 1.6rem + 4vw, 4.6rem); line-height: 1; letter-spacing: -.025em; }
+.blog-head p { margin: 1.1rem auto 0; max-width: 34em; color: var(--ink-2); font-size: 1.125rem; }
+.blog-head + .post-grid { padding-bottom: clamp(64px, 8vw, 112px); }
+
+.post__hero { margin-top: clamp(28px, 5vw, 56px); padding: clamp(36px, 6vw, 72px) clamp(24px, 5vw, 64px); border-radius: 32px; text-align: center; }
+.post__hero--red { background: #D63B25; color: #fff; }
+.post__hero--blue { background: #1F4DF5; color: #fff; }
+.post__hero--plain { background: var(--bg-raised); box-shadow: inset 0 0 0 1px var(--line); }
+.post__crumbs { display: flex; justify-content: center; gap: .5rem; font-size: .875rem; font-weight: 600; }
+.post__crumbs a { color: inherit; opacity: .85; }
+.post__crumbs span { opacity: .6; }
+.post__hero h1 { margin: 1rem auto 0; max-width: 18em; font-family: var(--font-display); font-stretch: 115%; font-weight: 800; font-size: clamp(2.1rem, 1.3rem + 3.4vw, 4rem); line-height: 1.02; letter-spacing: -.025em; text-wrap: balance; }
+.post__dek { margin: 1.1rem auto 0; max-width: 36em; font-size: clamp(1.0625rem, 1rem + .4vw, 1.25rem); opacity: .88; }
+.post__meta { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .6rem 1rem; margin-top: 1.75rem; font-size: .9375rem; }
+.post__meta img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+.post__meta .by { display: flex; align-items: center; gap: .55rem; font-weight: 600; }
+.post__meta span:not(.by) { opacity: .8; }
+
+.prose { max-width: 68ch; margin: clamp(40px, 6vw, 72px) auto 0; font-size: 1.125rem; line-height: 1.7; }
+.prose > * + * { margin-top: 1.15rem; }
+.prose h2 { margin-top: 2.6rem; font-family: var(--font-display); font-stretch: 110%; font-weight: 800; font-size: clamp(1.4rem, 1.2rem + .8vw, 1.8rem); line-height: 1.15; letter-spacing: -.015em; }
+.prose ul, .prose ol { padding-left: 1.25rem; list-style: disc; }
+.prose li + li { margin-top: .5rem; }
+.prose li::marker { color: var(--ink-2); }
+.prose strong { font-weight: 650; }
+.prose code { font-family: var(--font-mono); font-size: .86em; padding: .12em .38em; border-radius: 6px; background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.prose pre { margin-top: 1.4rem; padding: 18px 20px; border-radius: 16px; overflow-x: auto; background: var(--code-bg); color: var(--code-ink); font-size: .875rem; line-height: 1.65; box-shadow: inset 0 0 0 1px var(--line); }
+.prose pre code { padding: 0; background: none; font-size: inherit; color: inherit; white-space: pre; }
+.prose pre + p { margin-top: 1.4rem; }
+
+.post__cta { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.25rem; max-width: 68ch; margin: clamp(48px, 6vw, 72px) auto 0; padding: 22px 22px 22px 24px; border-radius: 28px; background: var(--ink); color: var(--bg); }
+.post__cta img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+.post__cta strong { display: block; font-family: var(--font-display); font-stretch: 110%; font-weight: 800; font-size: 1.125rem; }
+.post__cta span { display: block; font-size: .9375rem; opacity: .75; }
+.post__cta .btn { background: var(--bg); color: var(--ink); }
+.post__more { margin: clamp(56px, 7vw, 88px) 0 clamp(64px, 8vw, 104px); }
+.post__more h2 { font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 1.5rem; margin-bottom: 1.25rem; }
+.post__more .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 640px) {
+  .post__more .post-grid { grid-template-columns: 1fr; }
+  .post__hero { border-radius: 24px; }
+  .post__cta { grid-template-columns: auto 1fr; }
+  .post__cta .btn { grid-column: 1 / -1; justify-content: center; }
+}

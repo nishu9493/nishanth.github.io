@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blog | Nishanth Kumar, full-stack developer with an iOS core</title>
+<meta name="description" content="Articles on iOS, SwiftUI, Objective-C to Swift migration, code review and full-stack product work by Nishanth Kumar.">
+<link rel="canonical" href="https://nishanth.tech/blog/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Nishanth Kumar">
+<meta name="theme-color" content="#F5F5F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nishanth Kumar">
+<meta property="og:url" content="https://nishanth.tech/blog/">
+<meta property="og:title" content="Blog | Nishanth Kumar, full-stack developer with an iOS core">
+<meta property="og:description" content="Articles on iOS, SwiftUI, Objective-C to Swift migration, code review and full-stack product work by Nishanth Kumar.">
+<meta property="og:image" content="https://nishanth.tech/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nishanth Kumar, Full-Stack Developer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog | Nishanth Kumar, full-stack developer with an iOS core">
+<meta name="twitter:description" content="Articles on iOS, SwiftUI, Objective-C to Swift migration, code review and full-stack product work by Nishanth Kumar.">
+<meta name="twitter:image" content="https://nishanth.tech/og-image.png">
+<link rel="preload" href="../archivo-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="blog.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "https://nishanth.tech/blog/#blog",
+  "url": "https://nishanth.tech/blog/",
+  "name": "Nishanth Kumar’s blog",
+  "description": "Notes on iOS, full-stack development and building products.",
+  "author": {
+    "@type": "Person",
+    "@id": "https://nishanth.tech/#person",
+    "name": "Nishanth Kumar",
+    "url": "https://nishanth.tech/"
+  },
+  "inLanguage": "en",
+  "blogPost": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Adding SwiftUI to a UIKit app without a rewrite",
+      "url": "https://nishanth.tech/blog/swiftui-in-a-uikit-app.html",
+      "datePublished": "2026-11-26"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Moving Objective-C to Swift, one file at a time",
+      "url": "https://nishanth.tech/blog/objective-c-to-swift-migration.html",
+      "datePublished": "2026-11-26"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "My iOS code review checklist",
+      "url": "https://nishanth.tech/blog/ios-code-review-checklist.html",
+      "datePublished": "2026-11-26"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner" aria-label="Main">
+    <a class="nav__brand" href="../index.html"><img src="../nishanth.jpg" alt="" width="300" height="300"><span class="nav__brand-text">nishanth.tech</span></a>
+    <div class="nav__links">
+      <a href="../work/index.html">Work</a>
+      <a class="nav__hide" href="../index.html#services">Services</a>
+      <a href="../blog/index.html" aria-current="page">Blog</a>
+      <a href="../about/index.html">About</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a class="btn btn--primary nav__cta" href="../contact/index.html">Hire me</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap" id="main">
+  <header class="blog-head">
+    <h1>Writing</h1>
+    <p>Notes on iOS, full-stack work and building products, from things I’ve done on real apps.</p>
+  </header>
+  <div class="post-grid">
+    <article class="post-card post-card--red">
+      <p class="post-card__kicker">Article, iOS</p>
+      <h3 class="post-card__title"><a href="swiftui-in-a-uikit-app.html">Adding SwiftUI to a UIKit app without a rewrite</a></h3>
+      <p class="post-card__text">Bring SwiftUI into a large UIKit codebase one screen at a time.</p>
+      <span class="btn btn--light post-card__btn" aria-hidden="true">Read article</span>
+      <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(36 34) rotate(-7)"><rect width="112" height="140" rx="16" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/><text x="16" y="30" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#fff">UIKit</text><rect x="16" y="44" width="64" height="7" rx="3.5" fill="rgba(255,255,255,.45)"/><rect x="16" y="58" width="44" height="7" rx="3.5" fill="rgba(255,255,255,.45)"/></g><g transform="translate(98 44) rotate(5)"><rect width="112" height="140" rx="16" fill="#fff"/><text x="16" y="30" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#D63B25">SwiftUI</text><rect x="16" y="44" width="70" height="7" rx="3.5" fill="#F6C9C1"/><rect x="16" y="58" width="48" height="7" rx="3.5" fill="#F6C9C1"/><rect x="16" y="78" width="80" height="34" rx="9" fill="#FCE7E3"/></g></svg></div>
+    </article>
+    <article class="post-card post-card--blue">
+      <p class="post-card__kicker">Article, iOS</p>
+      <h3 class="post-card__title"><a href="objective-c-to-swift-migration.html">Moving <span class="nw">Objective-C</span> to Swift, one file at a time</a></h3>
+      <p class="post-card__text">Modernise an older iOS codebase without stopping feature work.</p>
+      <span class="btn btn--light post-card__btn" aria-hidden="true">Read article</span>
+      <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(22 40)"><rect width="86" height="120" rx="14" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/><text x="43" y="62" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="24" font-weight="700" fill="#fff">.m</text></g><path d="M116 98h18m-7-7 7 7-7 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(142 30)"><rect width="86" height="130" rx="14" fill="#fff"/><text x="43" y="70" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="19" font-weight="700" fill="#1F4DF5">.swift</text></g></svg></div>
+    </article>
+    <article class="post-card post-card--plain">
+      <p class="post-card__kicker">Article, Code review</p>
+      <h3 class="post-card__title"><a href="ios-code-review-checklist.html">My iOS code review checklist</a></h3>
+      <p class="post-card__text">What I look for in a Swift pull request, from state to tone.</p>
+      <span class="btn btn--primary post-card__btn" aria-hidden="true">Read article</span>
+      <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(56 26)"><rect width="128" height="150" rx="16" style="fill:var(--bg);stroke:var(--line)" stroke-width="1.5"/><g transform="translate(18 24)"><circle cx="9" cy="9" r="9" fill="#34C759"/><path d="m5 9 3 3 5.5-5.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="5" width="62" height="8" rx="4" style="fill:var(--line)"/></g><g transform="translate(18 54)"><circle cx="9" cy="9" r="9" fill="#34C759"/><path d="m5 9 3 3 5.5-5.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="5" width="48" height="8" rx="4" style="fill:var(--line)"/></g><g transform="translate(18 84)"><circle cx="9" cy="9" r="8" fill="none" style="stroke:var(--ink-2)" stroke-width="2"/><rect x="28" y="5" width="70" height="8" rx="4" style="fill:var(--line)"/></g></g></svg></div>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <div>
+        <p class="site-footer__big">Full-stack developer with iOS at the core.</p>
+        <div class="site-footer__actions">
+          <a class="btn btn--primary" href="../contact/index.html#book">Book a call</a>
+          <a class="btn btn--ghost" href="../contact/index.html#message">Send a message</a>
+        </div>
+      </div>
+      <nav aria-labelledby="f-pages">
+        <h2 id="f-pages">Pages</h2>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../work/index.html">Work</a></li>
+          <li><a href="../index.html#services">Services</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../faq/index.html">FAQ</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 id="f-connect">Connect</h2>
+        <ul aria-labelledby="f-connect">
+          <li><a href="https://www.linkedin.com/in/nishanthkumar9493" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="../contact/index.html#book">Book a call</a></li>
+          <li><a href="../nishanth-kumar-ios-resume.pdf" download>Résumé (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2026 Nishanth Kumar</p>
+      <p>Almere, Netherlands. Working remotely worldwide.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

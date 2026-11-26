@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Moving Objective-C to Swift, one file at a time | Nishanth Kumar</title>
+<meta name="description" content="A practical way to modernise an older iOS codebase without stopping feature work.">
+<link rel="canonical" href="https://nishanth.tech/blog/objective-c-to-swift-migration.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Nishanth Kumar">
+<meta name="theme-color" content="#F5F5F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nishanth Kumar">
+<meta property="og:url" content="https://nishanth.tech/blog/objective-c-to-swift-migration.html">
+<meta property="og:title" content="Moving Objective-C to Swift, one file at a time | Nishanth Kumar">
+<meta property="og:description" content="A practical way to modernise an older iOS codebase without stopping feature work.">
+<meta property="og:image" content="https://nishanth.tech/blog/og-objective-c-to-swift-migration.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Moving Objective-C to Swift, one file at a time">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Moving Objective-C to Swift, one file at a time | Nishanth Kumar">
+<meta name="twitter:description" content="A practical way to modernise an older iOS codebase without stopping feature work.">
+<meta name="twitter:image" content="https://nishanth.tech/blog/og-objective-c-to-swift-migration.png">
+<link rel="preload" href="../archivo-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="blog.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://nishanth.tech/blog/objective-c-to-swift-migration.html#post",
+      "headline": "Moving Objective-C to Swift, one file at a time",
+      "description": "A practical way to modernise an older iOS codebase without stopping feature work.",
+      "image": "https://nishanth.tech/blog/og-objective-c-to-swift-migration.png",
+      "datePublished": "2026-11-26",
+      "dateModified": "2026-11-26",
+      "inLanguage": "en",
+      "wordCount": 561,
+      "author": {
+        "@type": "Person",
+        "@id": "https://nishanth.tech/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.tech/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://nishanth.tech/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.tech/"
+      },
+      "mainEntityOfPage": "https://nishanth.tech/blog/objective-c-to-swift-migration.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://nishanth.tech/blog/#blog"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nishanth.tech/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://nishanth.tech/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Moving Objective-C to Swift, one file at a time",
+          "item": "https://nishanth.tech/blog/objective-c-to-swift-migration.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner" aria-label="Main">
+    <a class="nav__brand" href="../index.html"><img src="../nishanth.jpg" alt="" width="300" height="300"><span class="nav__brand-text">nishanth.tech</span></a>
+    <div class="nav__links">
+      <a href="../work/index.html">Work</a>
+      <a class="nav__hide" href="../index.html#services">Services</a>
+      <a href="../blog/index.html" aria-current="page">Blog</a>
+      <a href="../about/index.html">About</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a class="btn btn--primary nav__cta" href="../contact/index.html">Hire me</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap" id="main">
+  <article>
+    <header class="post__hero post__hero--blue">
+      <p class="post__crumbs"><a href="index.html">Blog</a><span aria-hidden="true">/</span>iOS</p>
+      <h1>Moving <span class="nw">Objective-C</span> to Swift, one file at a time</h1>
+      <p class="post__dek">A practical way to modernise an older iOS codebase without stopping feature work.</p>
+      <p class="post__meta">
+        <span class="by"><img src="../nishanth.jpg" alt="" width="300" height="300">Nishanth Kumar</span>
+        <time datetime="2026-11-26">26 November 2026</time>
+        <span>4 min read</span>
+      </p>
+    </header>
+
+    <div class="prose">
+<p>Plenty of successful iOS apps still contain a lot of Objective-C. It works, but it slows teams down: new developers don’t know it, and modern frameworks like SwiftUI expect Swift. Part of my work on the Colect and Le New Black iPad apps is exactly this kind of modernisation, so here’s how I approach it.</p>
+
+<h2>Don’t rewrite. Migrate as you go.</h2>
+<p>Swift and Objective-C live happily in the same target, so there’s no need for a big-bang rewrite. Two rules keep the migration moving: all new code is written in Swift, and when you change an Objective-C file for a feature or a bug, you consider converting it in the same pull request. The codebase gets more Swift every sprint, and feature work never stops.</p>
+
+<h2>Make Objective-C friendlier to Swift first</h2>
+<p>Before converting anything, annotate your Objective-C headers. It’s cheap and immediately improves every Swift file that calls them:</p>
+<pre><code>NS_ASSUME_NONNULL_BEGIN
+
+@interface ProductStore : NSObject
+@property (nonatomic, copy) NSArray&lt;Product *&gt; *products;
+- (nullable Product *)productWithID:(NSString *)productID
+    NS_SWIFT_NAME(product(id:));
+@end
+
+NS_ASSUME_NONNULL_END</code></pre>
+<p>Swift now sees <code>products</code> as <code>[Product]</code> instead of <code>[Any]</code>, and <code>product(id:)</code> returns <code>Product?</code> instead of an implicitly unwrapped optional. Nullability annotations, lightweight generics, <code>NS_SWIFT_NAME</code> and <code>NS_ENUM</code> do most of the work.</p>
+
+<h2>Know how the bridge works</h2>
+<p>Swift calls Objective-C through the bridging header. Objective-C calls Swift through the generated <code>YourModule-Swift.h</code> header, which only contains what Swift exposes with <code>@objc</code>. That second direction has limits: Swift structs, enums with associated values, generics and most protocol extensions aren’t visible to Objective-C. That shapes the order of the work.</p>
+
+<h2>Convert from the outside in</h2>
+<p>Swift calling Objective-C is smooth. Objective-C calling Swift forces you into <code>@objc</code>-compatible types. So start with code that nothing else in Objective-C depends on: new features first, then screens and view controllers, then the services they use. Leave shared models and core utilities for last, when few Objective-C callers remain. By then you can turn them into proper Swift types, like structs and enums, instead of <code>NSObject</code> subclasses kept only for compatibility.</p>
+<p>If an Objective-C class needs to call a Swift one early, add a thin <code>@objc</code> wrapper and delete it later.</p>
+
+<h2>Lock behaviour with tests before you convert</h2>
+<p>A conversion should change the language, not the behaviour. Before converting a class, write XCTest cases around its public methods, run them, convert the class and run them again. Even a handful of tests catches most mistakes.</p>
+
+<h2>Watch for the subtle differences</h2>
+<ul>
+<li><strong>Messaging nil.</strong> In Objective-C, calling a method on <code>nil</code> quietly returns nil or zero. In Swift, optionals make you handle it. Converted code sometimes reveals bugs that were there all along.</li>
+<li><strong>Numbers.</strong> <code>NSNumber</code>, <code>NSInteger</code> and <code>CGFloat</code> map to Swift types, but mixed arithmetic needs explicit conversions.</li>
+<li><strong>Dynamic features.</strong> KVO needs properties marked <code>@objc dynamic</code>, and selectors need <code>@objc</code> methods.</li>
+<li><strong>Singletons and global state.</strong> A conversion is a good moment to inject dependencies instead of calling shared instances everywhere.</li>
+</ul>
+
+<h2>Then bring in SwiftUI</h2>
+<p>Once a flow is in Swift, adding SwiftUI screens becomes easy. I wrote about that next step in <a href="swiftui-in-a-uikit-app.html">Adding SwiftUI to a UIKit app without a rewrite</a>.</p>
+
+<h2>Make progress visible</h2>
+<p>Track the share of Swift files over time, for example with a small script in CI that counts <code>.swift</code> and <code>.m</code> files. It keeps the migration on everyone’s radar and makes it easy to show the team, and the business, that it’s moving.</p>
+    </div>
+
+    <aside class="post__cta" aria-label="Work with me">
+      <img src="../nishanth.jpg" alt="" width="300" height="300">
+      <div><strong>Want help with this on your app?</strong><span>I build, review and speed up iOS apps, plus the web and backend around them.</span></div>
+      <a class="btn" href="../contact/index.html#book">Book a call</a>
+    </aside>
+  </article>
+
+  <section class="post__more" aria-labelledby="more-title">
+    <h2 id="more-title">More articles</h2>
+    <div class="post-grid">
+      <article class="post-card post-card--red">
+        <p class="post-card__kicker">Article, iOS</p>
+        <h3 class="post-card__title"><a href="swiftui-in-a-uikit-app.html">Adding SwiftUI to a UIKit app without a rewrite</a></h3>
+        <p class="post-card__text">Bring SwiftUI into a large UIKit codebase one screen at a time.</p>
+        <span class="btn btn--light post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(36 34) rotate(-7)"><rect width="112" height="140" rx="16" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/><text x="16" y="30" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#fff">UIKit</text><rect x="16" y="44" width="64" height="7" rx="3.5" fill="rgba(255,255,255,.45)"/><rect x="16" y="58" width="44" height="7" rx="3.5" fill="rgba(255,255,255,.45)"/></g><g transform="translate(98 44) rotate(5)"><rect width="112" height="140" rx="16" fill="#fff"/><text x="16" y="30" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#D63B25">SwiftUI</text><rect x="16" y="44" width="70" height="7" rx="3.5" fill="#F6C9C1"/><rect x="16" y="58" width="48" height="7" rx="3.5" fill="#F6C9C1"/><rect x="16" y="78" width="80" height="34" rx="9" fill="#FCE7E3"/></g></svg></div>
+      </article>
+      <article class="post-card post-card--plain">
+        <p class="post-card__kicker">Article, Code review</p>
+        <h3 class="post-card__title"><a href="ios-code-review-checklist.html">My iOS code review checklist</a></h3>
+        <p class="post-card__text">What I look for in a Swift pull request, from state to tone.</p>
+        <span class="btn btn--primary post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(56 26)"><rect width="128" height="150" rx="16" style="fill:var(--bg);stroke:var(--line)" stroke-width="1.5"/><g transform="translate(18 24)"><circle cx="9" cy="9" r="9" fill="#34C759"/><path d="m5 9 3 3 5.5-5.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="5" width="62" height="8" rx="4" style="fill:var(--line)"/></g><g transform="translate(18 54)"><circle cx="9" cy="9" r="9" fill="#34C759"/><path d="m5 9 3 3 5.5-5.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="5" width="48" height="8" rx="4" style="fill:var(--line)"/></g><g transform="translate(18 84)"><circle cx="9" cy="9" r="8" fill="none" style="stroke:var(--ink-2)" stroke-width="2"/><rect x="28" y="5" width="70" height="8" rx="4" style="fill:var(--line)"/></g></g></svg></div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <div>
+        <p class="site-footer__big">Full-stack developer with iOS at the core.</p>
+        <div class="site-footer__actions">
+          <a class="btn btn--primary" href="../contact/index.html#book">Book a call</a>
+          <a class="btn btn--ghost" href="../contact/index.html#message">Send a message</a>
+        </div>
+      </div>
+      <nav aria-labelledby="f-pages">
+        <h2 id="f-pages">Pages</h2>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../work/index.html">Work</a></li>
+          <li><a href="../index.html#services">Services</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../faq/index.html">FAQ</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 id="f-connect">Connect</h2>
+        <ul aria-labelledby="f-connect">
+          <li><a href="https://www.linkedin.com/in/nishanthkumar9493" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="../contact/index.html#book">Book a call</a></li>
+          <li><a href="../nishanth-kumar-ios-resume.pdf" download>Résumé (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2026 Nishanth Kumar</p>
+      <p>Almere, Netherlands. Working remotely worldwide.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

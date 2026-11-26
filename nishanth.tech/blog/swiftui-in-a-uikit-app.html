@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Adding SwiftUI to a UIKit app without a rewrite | Nishanth Kumar</title>
+<meta name="description" content="How to bring SwiftUI into a large UIKit codebase one screen at a time, and the traps to watch for.">
+<link rel="canonical" href="https://nishanth.tech/blog/swiftui-in-a-uikit-app.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Nishanth Kumar">
+<meta name="theme-color" content="#F5F5F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nishanth Kumar">
+<meta property="og:url" content="https://nishanth.tech/blog/swiftui-in-a-uikit-app.html">
+<meta property="og:title" content="Adding SwiftUI to a UIKit app without a rewrite | Nishanth Kumar">
+<meta property="og:description" content="How to bring SwiftUI into a large UIKit codebase one screen at a time, and the traps to watch for.">
+<meta property="og:image" content="https://nishanth.tech/blog/og-swiftui-in-a-uikit-app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Adding SwiftUI to a UIKit app without a rewrite">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Adding SwiftUI to a UIKit app without a rewrite | Nishanth Kumar">
+<meta name="twitter:description" content="How to bring SwiftUI into a large UIKit codebase one screen at a time, and the traps to watch for.">
+<meta name="twitter:image" content="https://nishanth.tech/blog/og-swiftui-in-a-uikit-app.png">
+<link rel="preload" href="../archivo-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="blog.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://nishanth.tech/blog/swiftui-in-a-uikit-app.html#post",
+      "headline": "Adding SwiftUI to a UIKit app without a rewrite",
+      "description": "How to bring SwiftUI into a large UIKit codebase one screen at a time, and the traps to watch for.",
+      "image": "https://nishanth.tech/blog/og-swiftui-in-a-uikit-app.png",
+      "datePublished": "2026-11-26",
+      "dateModified": "2026-11-26",
+      "inLanguage": "en",
+      "wordCount": 736,
+      "author": {
+        "@type": "Person",
+        "@id": "https://nishanth.tech/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.tech/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://nishanth.tech/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.tech/"
+      },
+      "mainEntityOfPage": "https://nishanth.tech/blog/swiftui-in-a-uikit-app.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://nishanth.tech/blog/#blog"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nishanth.tech/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://nishanth.tech/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Adding SwiftUI to a UIKit app without a rewrite",
+          "item": "https://nishanth.tech/blog/swiftui-in-a-uikit-app.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner" aria-label="Main">
+    <a class="nav__brand" href="../index.html"><img src="../nishanth.jpg" alt="" width="300" height="300"><span class="nav__brand-text">nishanth.tech</span></a>
+    <div class="nav__links">
+      <a href="../work/index.html">Work</a>
+      <a class="nav__hide" href="../index.html#services">Services</a>
+      <a href="../blog/index.html" aria-current="page">Blog</a>
+      <a href="../about/index.html">About</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a class="btn btn--primary nav__cta" href="../contact/index.html">Hire me</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap" id="main">
+  <article>
+    <header class="post__hero post__hero--red">
+      <p class="post__crumbs"><a href="index.html">Blog</a><span aria-hidden="true">/</span>iOS</p>
+      <h1>Adding SwiftUI to a UIKit app without a rewrite</h1>
+      <p class="post__dek">How to bring SwiftUI into a large UIKit codebase one screen at a time, and the traps to watch for.</p>
+      <p class="post__meta">
+        <span class="by"><img src="../nishanth.jpg" alt="" width="300" height="300">Nishanth Kumar</span>
+        <time datetime="2026-11-26">26 November 2026</time>
+        <span>6 min read</span>
+      </p>
+    </header>
+
+    <div class="prose">
+<p>Most iOS apps with real users were built in UIKit, and a full rewrite in SwiftUI is rarely worth the risk. You don’t have to choose. UIKit and SwiftUI work side by side, so you can build new screens in SwiftUI and leave the rest of the app alone.</p>
+<p>I’ve done this on large apps, including new SwiftUI screens inside the existing UIKit app for Jumbo, one of the largest supermarket chains in the Netherlands. This is the approach I use.</p>
+
+<h2>Start with one leaf screen</h2>
+<p>Pick a screen at the end of a flow with few dependencies: a detail page, a settings screen or an onboarding step. Avoid the home screen or anything the rest of the app depends on. A small first screen lets the team learn SwiftUI on real code without putting the whole app at risk.</p>
+
+<h2>Host it with UIHostingController</h2>
+<p><code>UIHostingController</code> wraps a SwiftUI view in a normal view controller, so the rest of the app doesn’t need to know SwiftUI is involved. To show a full screen, push it like any other view controller:</p>
+<pre><code>let detail = ProductDetailView(viewModel: viewModel)
+let host = UIHostingController(rootView: detail)
+host.title = product.name
+navigationController?.pushViewController(host, animated: true)</code></pre>
+<p>To use SwiftUI for part of a screen, add the hosting controller as a child:</p>
+<pre><code>let host = UIHostingController(rootView: PromoBanner(promo: promo))
+host.sizingOptions = .intrinsicContentSize   // iOS 16+
+addChild(host)
+host.view.translatesAutoresizingMaskIntoConstraints = false
+containerView.addSubview(host.view)
+NSLayoutConstraint.activate([
+    host.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+    host.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+    host.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+    host.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+])
+host.didMove(toParent: self)</code></pre>
+<p>Setting <code>sizingOptions</code> to <code>.intrinsicContentSize</code> lets Auto Layout use the size SwiftUI asks for, so you don’t have to hard-code heights. For table and collection view cells, iOS 16 added <code>UIHostingConfiguration</code>, which is simpler and sizes the cell for you:</p>
+<pre><code>cell.contentConfiguration = UIHostingConfiguration {
+    ProductRow(product: product)
+}</code></pre>
+
+<h2>Share state, don’t duplicate it</h2>
+<p>The most common mistake I see is a second copy of the data just for the SwiftUI screens. Keep your existing services and models as the single source of truth, and give the SwiftUI view a view model that wraps them:</p>
+<pre><code>final class CartViewModel: ObservableObject {
+    @Published private(set) var items: [CartItem] = []
+    private let cartService: CartService
+
+    init(cartService: CartService) {
+        self.cartService = cartService
+        items = cartService.items
+    }
+
+    func remove(_ item: CartItem) {
+        cartService.remove(item)
+        items = cartService.items
+    }
+}</code></pre>
+<p>When UIKit creates the view model and passes it in, the SwiftUI view should hold it with <code>@ObservedObject</code>, because the view doesn’t own it. Use <code>@StateObject</code> only when the view creates the object itself. Mixing these up gives you screens that reset or reload whenever the parent redraws. On iOS 17 and later you can use the <code>@Observable</code> macro instead, and the same rule applies: the owner keeps it in <code>@State</code>, everyone else just receives it.</p>
+
+<h2>Keep navigation in UIKit, for now</h2>
+<p>Let SwiftUI views report what happened, and let UIKit decide where to go. Closures work well:</p>
+<pre><code>struct ProductDetailView: View {
+    @ObservedObject var viewModel: ProductDetailViewModel
+    var onAddToCart: (Product) -> Void
+
+    var body: some View {
+        Button("Add to cart") { onAddToCart(viewModel.product) }
+    }
+}</code></pre>
+<p>The view controller or coordinator that pushed the screen handles <code>onAddToCart</code>. Don’t wrap a hosted screen in its own <code>NavigationStack</code> while it sits inside a <code>UINavigationController</code>, or you’ll get two navigation bars. Once most screens in a flow are SwiftUI, move that whole flow to <code>NavigationStack</code> in one step.</p>
+
+<h2>Make both worlds look the same</h2>
+<p>Users shouldn’t be able to tell which screens are SwiftUI. Define colours in the asset catalog so UIKit reads <code>UIColor(named:)</code> and SwiftUI reads <code>Color("BrandPrimary")</code> from the same place. Use semantic text styles like <code>.body</code> and <code>.headline</code> in both, so Dynamic Type works everywhere. Check spacing and corner radius against your existing components before the first screen ships.</p>
+
+<h2>Watch for these traps</h2>
+<ul>
+<li><strong>Deployment target.</strong> Many SwiftUI APIs depend on the iOS version. Check every API against your minimum supported version, not the one on your phone.</li>
+<li><strong>Sizing in stack views and cells.</strong> Without <code>sizingOptions</code> or <code>UIHostingConfiguration</code>, hosted views often end up the wrong height.</li>
+<li><strong>Heavy work in <code>body</code>.</strong> SwiftUI may call <code>body</code> often. Keep formatting, sorting and image processing in the view model.</li>
+<li><strong>Tests.</strong> Keep logic in view models so XCTest covers it, and add XCUITest flows where UIKit and SwiftUI screens meet.</li>
+</ul>
+
+<h2>The payoff</h2>
+<p>Done this way, the app stays stable, the team keeps shipping features, and every new SwiftUI screen is cheaper than the last. Over time most new work lands in SwiftUI, and nobody had to stop for a rewrite.</p>
+    </div>
+
+    <aside class="post__cta" aria-label="Work with me">
+      <img src="../nishanth.jpg" alt="" width="300" height="300">
+      <div><strong>Want help with this on your app?</strong><span>I build, review and speed up iOS apps, plus the web and backend around them.</span></div>
+      <a class="btn" href="../contact/index.html#book">Book a call</a>
+    </aside>
+  </article>
+
+  <section class="post__more" aria-labelledby="more-title">
+    <h2 id="more-title">More articles</h2>
+    <div class="post-grid">
+      <article class="post-card post-card--blue">
+        <p class="post-card__kicker">Article, iOS</p>
+        <h3 class="post-card__title"><a href="objective-c-to-swift-migration.html">Moving <span class="nw">Objective-C</span> to Swift, one file at a time</a></h3>
+        <p class="post-card__text">Modernise an older iOS codebase without stopping feature work.</p>
+        <span class="btn btn--light post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(22 40)"><rect width="86" height="120" rx="14" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/><text x="43" y="62" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="24" font-weight="700" fill="#fff">.m</text></g><path d="M116 98h18m-7-7 7 7-7 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(142 30)"><rect width="86" height="130" rx="14" fill="#fff"/><text x="43" y="70" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="19" font-weight="700" fill="#1F4DF5">.swift</text></g></svg></div>
+      </article>
+      <article class="post-card post-card--plain">
+        <p class="post-card__kicker">Article, Code review</p>
+        <h3 class="post-card__title"><a href="ios-code-review-checklist.html">My iOS code review checklist</a></h3>
+        <p class="post-card__text">What I look for in a Swift pull request, from state to tone.</p>
+        <span class="btn btn--primary post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(56 26)"><rect width="128" height="150" rx="16" style="fill:var(--bg);stroke:var(--line)" stroke-width="1.5"/><g transform="translate(18 24)"><circle cx="9" cy="9" r="9" fill="#34C759"/><path d="m5 9 3 3 5.5-5.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="5" width="62" height="8" rx="4" style="fill:var(--line)"/></g><g transform="translate(18 54)"><circle cx="9" cy="9" r="9" fill="#34C759"/><path d="m5 9 3 3 5.5-5.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="5" width="48" height="8" rx="4" style="fill:var(--line)"/></g><g transform="translate(18 84)"><circle cx="9" cy="9" r="8" fill="none" style="stroke:var(--ink-2)" stroke-width="2"/><rect x="28" y="5" width="70" height="8" rx="4" style="fill:var(--line)"/></g></g></svg></div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <div>
+        <p class="site-footer__big">Full-stack developer with iOS at the core.</p>
+        <div class="site-footer__actions">
+          <a class="btn btn--primary" href="../contact/index.html#book">Book a call</a>
+          <a class="btn btn--ghost" href="../contact/index.html#message">Send a message</a>
+        </div>
+      </div>
+      <nav aria-labelledby="f-pages">
+        <h2 id="f-pages">Pages</h2>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../work/index.html">Work</a></li>
+          <li><a href="../index.html#services">Services</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../faq/index.html">FAQ</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 id="f-connect">Connect</h2>
+        <ul aria-labelledby="f-connect">
+          <li><a href="https://www.linkedin.com/in/nishanthkumar9493" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="../contact/index.html#book">Book a call</a></li>
+          <li><a href="../nishanth-kumar-ios-resume.pdf" download>Résumé (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2026 Nishanth Kumar</p>
+      <p>Almere, Netherlands. Working remotely worldwide.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

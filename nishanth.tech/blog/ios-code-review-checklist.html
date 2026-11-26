@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My iOS code review checklist | Nishanth Kumar</title>
+<meta name="description" content="What I look for in a Swift pull request, from state and memory to tests and tone.">
+<link rel="canonical" href="https://nishanth.tech/blog/ios-code-review-checklist.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Nishanth Kumar">
+<meta name="theme-color" content="#F5F5F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nishanth Kumar">
+<meta property="og:url" content="https://nishanth.tech/blog/ios-code-review-checklist.html">
+<meta property="og:title" content="My iOS code review checklist | Nishanth Kumar">
+<meta property="og:description" content="What I look for in a Swift pull request, from state and memory to tests and tone.">
+<meta property="og:image" content="https://nishanth.tech/blog/og-ios-code-review-checklist.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="My iOS code review checklist">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="My iOS code review checklist | Nishanth Kumar">
+<meta name="twitter:description" content="What I look for in a Swift pull request, from state and memory to tests and tone.">
+<meta name="twitter:image" content="https://nishanth.tech/blog/og-ios-code-review-checklist.png">
+<link rel="preload" href="../archivo-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="blog.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://nishanth.tech/blog/ios-code-review-checklist.html#post",
+      "headline": "My iOS code review checklist",
+      "description": "What I look for in a Swift pull request, from state and memory to tests and tone.",
+      "image": "https://nishanth.tech/blog/og-ios-code-review-checklist.png",
+      "datePublished": "2026-11-26",
+      "dateModified": "2026-11-26",
+      "inLanguage": "en",
+      "wordCount": 574,
+      "author": {
+        "@type": "Person",
+        "@id": "https://nishanth.tech/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.tech/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://nishanth.tech/#person",
+        "name": "Nishanth Kumar",
+        "url": "https://nishanth.tech/"
+      },
+      "mainEntityOfPage": "https://nishanth.tech/blog/ios-code-review-checklist.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://nishanth.tech/blog/#blog"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nishanth.tech/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://nishanth.tech/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "My iOS code review checklist",
+          "item": "https://nishanth.tech/blog/ios-code-review-checklist.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner" aria-label="Main">
+    <a class="nav__brand" href="../index.html"><img src="../nishanth.jpg" alt="" width="300" height="300"><span class="nav__brand-text">nishanth.tech</span></a>
+    <div class="nav__links">
+      <a href="../work/index.html">Work</a>
+      <a class="nav__hide" href="../index.html#services">Services</a>
+      <a href="../blog/index.html" aria-current="page">Blog</a>
+      <a href="../about/index.html">About</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a class="btn btn--primary nav__cta" href="../contact/index.html">Hire me</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap" id="main">
+  <article>
+    <header class="post__hero post__hero--plain">
+      <p class="post__crumbs"><a href="index.html">Blog</a><span aria-hidden="true">/</span>Code review</p>
+      <h1>My iOS code review checklist</h1>
+      <p class="post__dek">What I look for in a Swift pull request, from state and memory to tests and tone.</p>
+      <p class="post__meta">
+        <span class="by"><img src="../nishanth.jpg" alt="" width="300" height="300">Nishanth Kumar</span>
+        <time datetime="2026-11-26">26 November 2026</time>
+        <span>4 min read</span>
+      </p>
+    </header>
+
+    <div class="prose">
+<p>Code review is where a team’s standards actually live. A good review catches bugs before users do and spreads knowledge across the team. A bad one is a pile of nitpicks nobody learns from. This is the checklist I use for iOS pull requests, in the order I go through it.</p>
+
+<h2>1. Before reading the code</h2>
+<ul>
+<li>Does the description explain <em>why</em>, not just what? It should link the ticket and the design.</li>
+<li>Is it small enough to review well? Past a few hundred lines, I ask for it to be split.</li>
+<li>For UI changes, are there screenshots or a short video, in light and dark mode?</li>
+</ul>
+
+<h2>2. State and data flow</h2>
+<p>In SwiftUI, most bugs I find come down to who owns the state:</p>
+<pre><code>// Recreated every time the parent redraws
+@ObservedObject var model = CatalogViewModel()
+
+// Created once and kept for the view’s lifetime
+@StateObject private var model = CatalogViewModel()</code></pre>
+<p>Use <code>@StateObject</code> (or <code>@State</code> with <code>@Observable</code>) when the view creates the object, and <code>@ObservedObject</code> when it receives one from outside. I also check that each piece of data has one source of truth, and that UI state changes happen on the main actor.</p>
+
+<h2>3. Memory</h2>
+<p>Retain cycles rarely crash anything. They quietly leak memory and keep work running after a screen is gone. A classic:</p>
+<pre><code>// Leaks: the run loop keeps the timer, the timer keeps the closure,
+// and the closure keeps self.
+timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
+    self.refresh()
+}
+
+// Fixed
+timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+    self?.refresh()
+}
+
+deinit { timer?.invalidate() }</code></pre>
+<p>Other usual suspects: closure-based <code>NotificationCenter</code> observers that are never removed, delegates that aren’t <code>weak</code>, and Combine subscriptions that capture <code>self</code> strongly.</p>
+
+<h2>4. Concurrency</h2>
+<ul>
+<li>Long-running tasks should check for cancellation, and work tied to a screen should stop when the screen goes away. SwiftUI’s <code>.task</code> modifier handles this for you.</li>
+<li>UI updates belong on the main actor. Marking a view model <code>@MainActor</code> is usually cleaner than sprinkling <code>DispatchQueue.main.async</code> around.</li>
+<li>Mutable state shared between tasks should live in an actor or be otherwise protected.</li>
+</ul>
+
+<h2>5. Performance</h2>
+<ul>
+<li>No heavy work in SwiftUI’s <code>body</code> or in <code>cellForRowAt</code>. Formatting, sorting, filtering and image decoding belong elsewhere.</li>
+<li>Images are downsampled to the size they’re shown at, not decoded at full resolution.</li>
+<li>Lists use stable identifiers, so SwiftUI doesn’t redraw every row.</li>
+<li>For anything that feels slow, profile with Instruments instead of guessing.</li>
+</ul>
+
+<h2>6. Tests</h2>
+<p>Logic should live where XCTest can reach it, usually in view models and services. I look for tests on the edges: empty states, errors, no network and odd input. For key flows like sign-in or checkout, an XCUITest is worth its upkeep.</p>
+
+<h2>7. Accessibility and localisation</h2>
+<ul>
+<li>Text uses Dynamic Type styles, and the layout survives the largest sizes.</li>
+<li>Icon-only buttons have an accessibility label.</li>
+<li>No hard-coded user-facing strings. Everything goes through localisation.</li>
+</ul>
+
+<h2>8. Release readiness</h2>
+<ul>
+<li>Force unwraps and <code>try!</code> only where a crash really is the right outcome.</li>
+<li>New permissions have clear usage descriptions in <code>Info.plist</code>.</li>
+<li>Risky features sit behind a feature flag.</li>
+<li>Analytics and logs don’t include personal data.</li>
+</ul>
+
+<h2>9. How the review reads</h2>
+<p>Tone matters as much as findings. I explain why something is a problem, suggest code instead of only pointing at it, mark which comments must be fixed and which are optional, and say what’s good. A review should leave the author better at their job, not just their pull request better.</p>
+    </div>
+
+    <aside class="post__cta" aria-label="Work with me">
+      <img src="../nishanth.jpg" alt="" width="300" height="300">
+      <div><strong>Want help with this on your app?</strong><span>I build, review and speed up iOS apps, plus the web and backend around them.</span></div>
+      <a class="btn" href="../contact/index.html#book">Book a call</a>
+    </aside>
+  </article>
+
+  <section class="post__more" aria-labelledby="more-title">
+    <h2 id="more-title">More articles</h2>
+    <div class="post-grid">
+      <article class="post-card post-card--red">
+        <p class="post-card__kicker">Article, iOS</p>
+        <h3 class="post-card__title"><a href="swiftui-in-a-uikit-app.html">Adding SwiftUI to a UIKit app without a rewrite</a></h3>
+        <p class="post-card__text">Bring SwiftUI into a large UIKit codebase one screen at a time.</p>
+        <span class="btn btn--light post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(36 34) rotate(-7)"><rect width="112" height="140" rx="16" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/><text x="16" y="30" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#fff">UIKit</text><rect x="16" y="44" width="64" height="7" rx="3.5" fill="rgba(255,255,255,.45)"/><rect x="16" y="58" width="44" height="7" rx="3.5" fill="rgba(255,255,255,.45)"/></g><g transform="translate(98 44) rotate(5)"><rect width="112" height="140" rx="16" fill="#fff"/><text x="16" y="30" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#D63B25">SwiftUI</text><rect x="16" y="44" width="70" height="7" rx="3.5" fill="#F6C9C1"/><rect x="16" y="58" width="48" height="7" rx="3.5" fill="#F6C9C1"/><rect x="16" y="78" width="80" height="34" rx="9" fill="#FCE7E3"/></g></svg></div>
+      </article>
+      <article class="post-card post-card--blue">
+        <p class="post-card__kicker">Article, iOS</p>
+        <h3 class="post-card__title"><a href="objective-c-to-swift-migration.html">Moving <span class="nw">Objective-C</span> to Swift, one file at a time</a></h3>
+        <p class="post-card__text">Modernise an older iOS codebase without stopping feature work.</p>
+        <span class="btn btn--light post-card__btn" aria-hidden="true">Read article</span>
+        <div class="post-card__art"><svg viewBox="0 0 240 150" aria-hidden="true"><g transform="translate(22 40)"><rect width="86" height="120" rx="14" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/><text x="43" y="62" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="24" font-weight="700" fill="#fff">.m</text></g><path d="M116 98h18m-7-7 7 7-7 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(142 30)"><rect width="86" height="130" rx="14" fill="#fff"/><text x="43" y="70" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="19" font-weight="700" fill="#1F4DF5">.swift</text></g></svg></div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <div>
+        <p class="site-footer__big">Full-stack developer with iOS at the core.</p>
+        <div class="site-footer__actions">
+          <a class="btn btn--primary" href="../contact/index.html#book">Book a call</a>
+          <a class="btn btn--ghost" href="../contact/index.html#message">Send a message</a>
+        </div>
+      </div>
+      <nav aria-labelledby="f-pages">
+        <h2 id="f-pages">Pages</h2>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../work/index.html">Work</a></li>
+          <li><a href="../index.html#services">Services</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../faq/index.html">FAQ</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 id="f-connect">Connect</h2>
+        <ul aria-labelledby="f-connect">
+          <li><a href="https://www.linkedin.com/in/nishanthkumar9493" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="../contact/index.html#book">Book a call</a></li>
+          <li><a href="../nishanth-kumar-ios-resume.pdf" download>Résumé (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2026 Nishanth Kumar</p>
+      <p>Almere, Netherlands. Working remotely worldwide.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
