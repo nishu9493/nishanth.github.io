@@ -844,6 +844,9 @@ a.app:active .app__icon { transform: scale(.94); }
 
 /* ---------- Multi-page additions ---------- */
 .nav__links a[aria-current="page"]:not(.btn) { color: var(--ink); font-weight: 650; }
+.nav__links a { white-space: nowrap; }
+.nav__brand img { flex: none; }
+@media (max-width: 400px) { .nav__links { gap: .5rem; font-size: .8125rem; } .nav__links .btn { padding: 0 .7rem; } .nav__brand { padding-right: 0; } .nav__brand img { width: 36px; height: 36px; } }
 @media (max-width: 600px) { .nav__brand-text { display: none; } .nav__links { gap: .9rem; } }
 @media (max-width: 440px) { .nav__links { gap: .7rem; font-size: .875rem; } .nav__links .btn { padding: 0 .8rem; font-size: .875rem; } .nav__inner { padding: 0 6px; } }
 @media (max-width: 370px) { .nav__cta { display: none; } }
@@ -965,6 +968,78 @@ a.app:active .app__icon { transform: scale(.94); }
 /* the "next product" card: a coming-soon illustration instead of empty outlines */
 .work-card__art--soon { height: auto; margin-bottom: 0; padding: 1.5rem 0 2rem; }
 .work-card__art--soon svg { width: min(100%, 360px); height: auto; }
+
+/* ---------- Contact page: form + side cards ---------- */
+.page-hero--tight { padding-bottom: 0; }
+.section--contact { padding-top: clamp(32px, 4vw, 48px); }
+.contact-grid {
+  display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 20px; align-items: start;
+  grid-template-areas: "form book" "form side"; grid-template-rows: auto 1fr;
+}
+.form-card { grid-area: form; padding: clamp(24px, 4vw, 48px); border-radius: 28px; background: var(--bg-raised); box-shadow: inset 0 0 0 1px var(--line); }
+#book { grid-area: book; }
+.side-stack { grid-area: side; display: grid; gap: 16px; }
+.cform { display: grid; gap: 1.4rem; }
+.cform__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.cfield label, .picks legend { display: block; margin-bottom: .55rem; font-weight: 650; font-size: .9375rem; }
+.cfield label span { font-weight: 500; color: var(--ink-2); }
+.cfield input, .cfield textarea {
+  width: 100%; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg);
+  font: inherit; font-size: 1.0625rem; color: var(--ink); transition: border-color .15s ease, box-shadow .15s ease;
+}
+.cfield textarea { min-height: 170px; resize: vertical; line-height: 1.5; }
+.cfield input:focus, .cfield textarea:focus { outline: none; border-color: var(--link); box-shadow: 0 0 0 3px color-mix(in srgb, var(--link) 22%, transparent); }
+.cfield textarea::placeholder { color: color-mix(in srgb, var(--ink-2) 75%, transparent); }
+.picks { margin: 0; padding: 0; border: 0; min-width: 0; }
+.picks__list { display: flex; flex-wrap: wrap; gap: 10px; }
+.pick { position: relative; }
+.pick input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.pick span {
+  display: inline-flex; align-items: center; gap: .4rem; padding: .62rem 1.05rem; border-radius: 999px; cursor: pointer;
+  font-size: .9375rem; font-weight: 600; background: var(--bg-raised); box-shadow: inset 0 0 0 1.5px var(--line);
+  transition: background .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.pick span:hover { box-shadow: inset 0 0 0 1.5px var(--ink-2); }
+.pick input:checked + span { background: var(--ink); color: var(--bg); box-shadow: none; }
+.pick input:checked + span::before { content: "✓"; font-size: .85em; }
+.pick input:focus-visible + span { outline: 3px solid var(--link); outline-offset: 2px; }
+.cform__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem 1.5rem; }
+.cform__note { flex: 1 1 16rem; font-size: .9375rem; color: var(--ink-2); }
+.cform__note a { color: var(--ink); }
+.cform .btn { border: 0; cursor: pointer; font-family: inherit; }
+.cform .btn[disabled] { opacity: .55; cursor: default; }
+
+.side-card { padding: clamp(22px, 2.6vw, 32px); border-radius: 28px; background: var(--bg-raised); box-shadow: inset 0 0 0 1px var(--line); }
+.side-card h2 { font-family: var(--font-display); font-stretch: 110%; font-weight: 800; font-size: clamp(1.4rem, 1.2rem + .7vw, 1.75rem); line-height: 1.12; letter-spacing: -.015em; }
+.side-card p { margin-top: .6rem; color: var(--ink-2); }
+.side-card p a { color: var(--ink); font-weight: 600; }
+.side-card--blue { background: #0071E3; color: #fff; box-shadow: none; }
+.side-card--blue p { color: rgba(255, 255, 255, .86); }
+.side-card--blue p a { color: #fff; }
+.side-card--blue .btn { margin-top: 1.4rem; border: 0; cursor: pointer; font-family: inherit; }
+.side-card__small { font-size: .875rem; }
+.side-card--dark { background: #111114; color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+.side-card--dark p { color: rgba(255, 255, 255, .72); }
+.side-card__kicker { display: flex; align-items: center; gap: .5rem; margin: 0 0 .5rem !important; color: #8E8E93 !important; font-weight: 650; font-size: .9375rem; }
+.live-dot { width: .55rem; height: .55rem; border-radius: 50%; background: #8E8E93; }
+.live-dot--on { background: #34C759; box-shadow: 0 0 0 .25rem rgba(52, 199, 89, .22); }
+.live-dot--on + span { color: #5EE07F; }
+@media (max-width: 960px) {
+  .contact-grid { grid-template-columns: 1fr; grid-template-areas: "book" "form" "side"; grid-template-rows: auto; }
+}
+@media (max-width: 560px) { .cform__row { grid-template-columns: 1fr; } }
+
+/* privacy policy */
+.section--legal { padding-top: clamp(32px, 4vw, 48px); }
+.legal { max-width: 68ch; font-size: 1.0625rem; line-height: 1.7; }
+.legal h2 { margin-top: 2.4rem; font-family: var(--font-display); font-stretch: 110%; font-weight: 800; font-size: 1.5rem; letter-spacing: -.015em; line-height: 1.2; }
+.legal h2:first-child { margin-top: 0; }
+.legal h3 { margin-top: 1.4rem; font-size: 1.125rem; font-weight: 650; }
+.legal p, .legal ul { margin-top: .7rem; color: var(--ink-2); }
+.legal ul { padding-left: 1.2rem; list-style: disc; display: grid; gap: .35rem; }
+.legal strong { color: var(--ink); font-weight: 650; }
+.legal a { color: var(--ink); }
+.site-footer__bottom a { color: var(--ink-2); }
 
 /* more article colours */
 .post-card--green    { background: #067A55; color: #fff; }

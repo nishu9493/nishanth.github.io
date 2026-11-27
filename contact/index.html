@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Contact | Nishanth Kumar, full-stack developer with an iOS core</title>
-<meta name="description" content="Book a call or send a message to Nishanth Kumar about app development, web development, code reviews or a dev role.">
+<meta name="description" content="Book a call or send a message to Nishanth Kumar about app development, web development, code reviews or a remote role.">
 <link rel="canonical" href="https://nishanth.dev/contact/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="Nishanth Kumar">
@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="Nishanth Kumar">
 <meta property="og:url" content="https://nishanth.dev/contact/">
 <meta property="og:title" content="Contact | Nishanth Kumar, full-stack developer with an iOS core">
-<meta property="og:description" content="Book a call or send a message to Nishanth Kumar about app development, web development, code reviews or a dev role.">
+<meta property="og:description" content="Book a call or send a message to Nishanth Kumar about app development, web development, code reviews or a remote role.">
 <meta property="og:image" content="https://nishanth.dev/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Nishanth Kumar, Full-Stack Developer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact | Nishanth Kumar, full-stack developer with an iOS core">
-<meta name="twitter:description" content="Book a call or send a message to Nishanth Kumar about app development, web development, code reviews or a dev role.">
+<meta name="twitter:description" content="Book a call or send a message to Nishanth Kumar about app development, web development, code reviews or a remote role.">
 <meta name="twitter:image" content="https://nishanth.dev/og-image.png">
 <link rel="preload" href="../archivo-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../site.css">
@@ -120,134 +120,131 @@
 </header>
 
 <main id="main">
-  <section class="page-hero">
+  <section class="page-hero page-hero--tight">
     <div class="wrap">
       <img class="contact-hero__photo" src="../nishanth.jpg" alt="" width="300" height="300">
       <h1 class="display">Let’s talk</h1>
-      <p class="hero__lead">Book a time straight in my calendar, or send a message and I’ll get back to you.</p>
-      <nav class="segmented" aria-label="Ways to get in touch">
-        <a href="#book"><svg aria-hidden="true" width="16" height="16"><use href="#i-calendar"/></svg>Book a call</a>
-        <a href="#message"><svg aria-hidden="true" width="16" height="16"><use href="#i-chat"/></svg>Send a message</a>
-      </nav>
+      <p class="hero__lead">Tell me what you’re working on, or book a call if you’d rather talk it through.</p>
     </div>
   </section>
 
-  <section class="section book" id="book" aria-labelledby="book-title">
-    <div class="wrap split">
-      <div class="split__aside">
-        <h2 class="h2" id="book-title">Book a call</h2>
-        <p class="intro">Pick a time that suits you. You’ll get a calendar invite with the details straight away.</p>
-        <ul class="ticks">
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>A new product or app idea</span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>A full-time or contract role</span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>A code review, audit or performance problem</span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>A product discussion before you build</span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Partnering as your technical co-founder</span></li>
-        </ul>
-        <p class="split__note">Times are shown in your own time zone. I’m based in the Netherlands (CET) and work with teams worldwide.</p>
-      </div>
-      <div>
-        <!-- =============================================================
-             BOOKING: Cal.com inline embed for https://cal.com/nishanth-kumar-n-s-5o5mxz/30min
-             To change the meeting type, edit calLink in the script at the
-             bottom of this page.
-             ============================================================= -->
-        <div class="browser">
-          <div class="browser__bar" aria-hidden="true">
-            <span class="browser__lights"><i></i><i></i><i></i></span>
-            <span class="browser__url"><svg><use href="#i-calendar"/></svg>Book a call with Nishanth</span>
-            <span></span>
-          </div>
-          <div class="book__slot">
-            <div id="cal-inline" class="cal-inline" aria-label="Booking calendar"></div>
-            <noscript>
-              <div class="book__empty">
-                <svg aria-hidden="true"><use href="#i-calendar"/></svg>
-                <p><strong>Pick a time on Cal.com</strong>Your browser has JavaScript turned off, so the calendar opens on its own page.</p>
-                <a class="btn btn--primary" href="https://cal.com/nishanth-kumar-n-s-5o5mxz/30min">Open my calendar</a>
-              </div>
-            </noscript>
-          </div>
-        </div>
-        <p class="book__fallback">Calendar not loading? <a href="https://cal.com/nishanth-kumar-n-s-5o5mxz/30min" target="_blank" rel="noopener">Open it on Cal.com</a>.</p>
-      </div>
-    </div>
-  </section>
+  <section class="section section--contact" aria-label="Get in touch">
+    <div class="wrap contact-grid">
 
-  <section class="section section--band" id="message" aria-labelledby="message-title">
-    <div class="wrap split">
-      <div class="split__aside">
-        <h2 class="h2" id="message-title">Send a message</h2>
-        <p class="intro">Tell me a little about what you need. A few lines is plenty, and I’ll reply to the email address you give.</p>
-        <p class="split__note">You can also find me on <a href="https://www.linkedin.com/in/nishanthkumar9493" target="_blank" rel="noopener">LinkedIn</a> or <a href="../nishanth-kumar-ios-resume.pdf" download>download my résumé</a>.</p>
-        <p class="split__note">Have a question first? <a href="../faq/index.html">Read the FAQ</a>.</p>
-      </div>
       <!-- =============================================================
            FORM: sends to Formspree form mdegbvea, which forwards each
            message to your inbox without your email appearing on the site.
            ============================================================= -->
-      <form class="ios-form" id="contact-form" action="https://formspree.io/f/mdegbvea" method="POST">
-        <input type="hidden" name="_subject" value="New message from nishanth.dev">
-        <div class="hp" aria-hidden="true"><label for="f-gotcha">Leave this empty</label><input type="text" id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
-        <div>
-          <p class="form-group__title" id="g-you">About you</p>
-          <div class="form-group" role="group" aria-labelledby="g-you">
-            <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Your name"></div>
-            <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required placeholder="So I can reply"></div>
-            <div class="field"><label for="f-company">Company <span>(optional)</span></label><input id="f-company" name="company" type="text" autocomplete="organization" placeholder="Where you work, if relevant"></div>
+      <div class="form-card" id="message">
+        <h2 class="sr-only">Send a message</h2>
+        <form class="cform" id="contact-form" action="https://formspree.io/f/mdegbvea" method="POST">
+          <input type="hidden" name="_subject" value="New message from nishanth.dev">
+          <input type="hidden" name="topics" id="f-topics" value="">
+          <div class="hp" aria-hidden="true"><label for="f-gotcha">Leave this empty</label><input type="text" id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+          <div class="cform__row">
+            <div class="cfield"><label for="f-name">Full name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+            <div class="cfield"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
           </div>
-        </div>
-        <div>
-          <p class="form-group__title" id="g-msg">Your message</p>
-          <div class="form-group" role="group" aria-labelledby="g-msg">
-            <div class="field"><label for="f-topic">What’s it about?</label>
-              <select id="f-topic" name="topic" required>
-                <option value="" disabled selected>Choose one</option>
-                <option value="idea">A new product or app idea</option>
-                <option value="role">A full-time role</option>
-                <option value="contract">Contract or freelance work</option>
-                <option value="review">A code review or audit</option>
-                <option value="performance">App performance</option>
-                <option value="discussion">A product discussion</option>
-                <option value="partnership">A partnership or co-founding</option>
-                <option value="products">RydeShare or my other products</option>
-                <option value="other">Something else</option>
-              </select>
+          <div class="cfield"><label for="f-company">Company <span>(optional)</span></label><input id="f-company" name="company" type="text" autocomplete="organization"></div>
+          <fieldset class="picks">
+            <legend>What do you need help with?</legend>
+            <div class="picks__list">
+            <label class="pick"><input type="checkbox" value="New product or MVP" data-key="idea"><span>New product or MVP</span></label>
+            <label class="pick"><input type="checkbox" value="iOS app" data-key="ios"><span>iOS app</span></label>
+            <label class="pick"><input type="checkbox" value="Web development" data-key="web"><span>Web development</span></label>
+            <label class="pick"><input type="checkbox" value="Backend and APIs" data-key="backend"><span>Backend and APIs</span></label>
+            <label class="pick"><input type="checkbox" value="React Native" data-key="react-native"><span>React Native</span></label>
+            <label class="pick"><input type="checkbox" value="Code review or audit" data-key="review"><span>Code review or audit</span></label>
+            <label class="pick"><input type="checkbox" value="App performance" data-key="performance"><span>App performance</span></label>
+            <label class="pick"><input type="checkbox" value="Co-founding partnership" data-key="partnership"><span>Co-founding partnership</span></label>
+            <label class="pick"><input type="checkbox" value="Full-time role" data-key="role"><span>Full-time role</span></label>
+            <label class="pick"><input type="checkbox" value="Contract work" data-key="contract"><span>Contract work</span></label>
+            <label class="pick"><input type="checkbox" value="RydeShare or my products" data-key="products"><span>RydeShare or my products</span></label>
+            <label class="pick"><input type="checkbox" value="Not sure yet" data-key="other"><span>Not sure yet</span></label>
             </div>
-            <div class="field"><label for="f-message">Message</label><textarea id="f-message" name="message" required placeholder="What are you working on, and how can I help?"></textarea></div>
+          </fieldset>
+          <div class="cfield"><label for="f-message">Project details</label><textarea id="f-message" name="message" required placeholder="Your idea, goals and timeline"></textarea></div>
+          <div class="cform__foot">
+            <p class="cform__note">I only use your details to reply to you. See the <a href="../privacy/index.html">privacy policy</a>.</p>
+            <button class="btn btn--primary btn--lg" type="submit">Send message</button>
           </div>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="side-card side-card--blue" id="book">
+        <h2>Prefer to talk?</h2>
+        <p>Book a 30-minute call and talk your idea, role or codebase through with me.</p>
+        <button class="btn btn--light btn--lg" type="button" data-cal-link="nishanth-kumar-n-s-5o5mxz/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}'><svg aria-hidden="true"><use href="#i-calendar"/></svg>Book a call</button>
+        <p class="side-card__small">Or <a href="https://cal.com/nishanth-kumar-n-s-5o5mxz/30min" target="_blank" rel="noopener">open the calendar in a new tab</a>.</p>
+      </div>
+
+      <div class="side-stack">
+        <div class="side-card side-card--dark">
+          <p class="side-card__kicker"><span class="live-dot" aria-hidden="true"></span><span id="work-state">Based in</span></p>
+          <h2>Almere, Netherlands</h2>
+          <p id="local-time">Working with teams worldwide, Monday to Friday, 09:00 to 18:00 CET.</p>
+          <p class="side-card__small" id="your-time" hidden></p>
         </div>
-        <div class="form-foot">
-          <button class="btn btn--primary" type="submit"><svg aria-hidden="true"><use href="#i-chat"/></svg>Send message</button>
-          <p class="form-privacy">I’ll only use your details to reply to you.</p>
+        <div class="side-card">
+          <h2>Quick answers</h2>
+          <p>Remote work, full-time roles, contracts, Android and partnering. <a href="../faq/index.html">Read the FAQ</a>.</p>
         </div>
-        <p class="form-status" role="status" aria-live="polite"></p>
-      </form>
+        <div class="side-card">
+          <h2>Elsewhere</h2>
+          <p><a href="https://www.linkedin.com/in/nishanthkumar9493" target="_blank" rel="noopener">LinkedIn</a> for my full profile and recommendations, or <a href="../nishanth-kumar-ios-resume.pdf" download>download my résumé</a>.</p>
+        </div>
+      </div>
     </div>
   </section>
 </main>
 
-<!-- Cal.com inline embed -->
+<!-- Cal.com pop-up embed: opens the calendar when a [data-cal-link] button is clicked -->
 <script>
 (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
 Cal("init", "30min", { origin: "https://cal.com" });
-Cal.ns["30min"]("inline", { elementOrSelector: "#cal-inline", calLink: "nishanth-kumar-n-s-5o5mxz/30min", layout: "month_view" });
 Cal.ns["30min"]("ui", { hideEventTypeDetails: false, layout: "month_view", styles: { branding: { brandColor: "#1D1D1F" } } });
 </script>
 <script>
 (() => {
-  // Preselect a topic from links like ?topic=products
-  const topic = new URLSearchParams(location.search).get('topic');
-  const select = document.getElementById('f-topic');
-  if (topic && [...select.options].some(o => o.value === topic)) select.value = topic;
+  // Local time in Almere, and whether I'm working right now (Mon to Fri, 09:00 to 18:00).
+  const TZ = 'Europe/Amsterdam', START = 9, END = 18;
+  const stateEl = document.getElementById('work-state'), timeEl = document.getElementById('local-time');
+  const yourEl = document.getElementById('your-time'), dot = document.querySelector('.live-dot');
+  const parts = (tz) => Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', weekday: 'short', hourCycle: 'h23' }).formatToParts(new Date()).map(p => [p.type, p.value]));
+  function tick() {
+    const a = parts(TZ), h = +a.hour, wd = a.weekday, weekend = wd === 'Sat' || wd === 'Sun';
+    const working = !weekend && h >= START && h < END;
+    let status = 'working now';
+    if (!working) {
+      if (weekend || (wd === 'Fri' && h >= END)) status = 'offline, back Monday at 09:00';
+      else if (h < START) status = 'offline, back at 09:00';
+      else status = 'offline, back tomorrow at 09:00';
+    }
+    stateEl.textContent = working ? 'Available now' : 'Based in';
+    dot.classList.toggle('live-dot--on', working);
+    timeEl.textContent = `Local time ${a.hour}:${a.minute}, ${status}.`;
+    const mine = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (mine && mine !== TZ) {
+      const b = parts(mine);
+      if (b.hour !== a.hour || b.minute !== a.minute) { yourEl.hidden = false; yourEl.textContent = `That’s ${b.hour}:${b.minute} where you are.`; }
+    }
+  }
+  tick(); setInterval(tick, 30000);
 
-  // Send the form without leaving the page.
+  // Topic chips: preselect from links like ?topic=partnership, and send the chosen ones as one field.
   const form = document.getElementById('contact-form');
+  const picks = [...form.querySelectorAll('.pick input')];
+  const want = new URLSearchParams(location.search).get('topic');
+  const alias = { discussion: 'other' };
+  if (want) picks.filter(i => i.dataset.key === (alias[want] || want)).forEach(i => i.checked = true);
+
   const status = form.querySelector('.form-status');
   const button = form.querySelector('button[type=submit]');
   const say = (text, kind) => { status.textContent = text; status.className = 'form-status' + (kind ? ' form-status--' + kind : ''); };
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    document.getElementById('f-topics').value = picks.filter(i => i.checked).map(i => i.value).join(', ');
     button.disabled = true; say('Sending…');
     try {
       const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
@@ -292,8 +289,8 @@ Cal.ns["30min"]("ui", { hideEventTypeDetails: false, layout: "month_view", style
       </div>
     </div>
     <div class="site-footer__bottom">
-      <p>© 2026 Nishanth Kumar</p>
-      <p>Netherlands</p>
+      <p>© 2026 Nishanth Kumar. <a href="../privacy/index.html">Privacy policy</a></p>
+      <p>Netherlands.</p>
     </div>
   </div>
 </footer>
